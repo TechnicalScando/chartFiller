@@ -71,7 +71,6 @@ function makeDatasetForMonth(name, days, starting, ending){
    let data = makeArrayOfWeights(days, starting, ending);
    let monthDataSet = makeDataSet(label, true, data, false );
    return monthDataSet; 
-
 }
 
 
