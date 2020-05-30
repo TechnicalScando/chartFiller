@@ -2,43 +2,47 @@ const monthLabels = ["January","February","March","April","May","June","July",
 "August","September","October","November","December"];
 const weekLabels = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const weekTitle = ["This is a week of data"];
+const daysInMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-var dataSet = {
-  label: 'BLANK DATASET',
-  steppedLine: 'false',
-  data: ['BLANK DATA'],
-  fill: 'false'
-}
+var testMonthDataSet = makeDatasetForMonth(monthLabels[0],
+  daysInMonth[0],
+  140,
+  150,
+  );
 
-var data = {
-  labels: 'BLANK LABEL',
-  datasets: 'BLANK DATASETS'
-}
+ var testMonthData = makeData("Monthly Data", testMonthDataSet);
+ 
+ console.log(testMonthData);
 
-weekOftestData = makeArrayOfWeights(7,140,160);
-makeDataSet(weekTitle,true,weekOftestData,false);
-testDataSet = dataSet;
-let testDataSets = [];
-testDataSets.push(testDataSet);
-makeData(weekLabels,testDataSets);
-testData = data;
-console.log(testData);
+  
 
-
-console.log(testDataSet);
 
 function makeDataSet(label, steppedLine, data, fill){
-  
+  var dataSet = {
+    label: 'BLANK DATASET',
+    steppedLine: 'false',
+    data: ['BLANK DATA'],
+    fill: 'false'
+  }
+
   dataSet.label = label;
   dataSet.steppedLine = steppedLine;
   dataSet.data = data;
   dataSet.fill = fill;
+
+  return dataSet;
 }
 
 function makeData(labels, dataSets){
+  var data = {
+    labels: 'BLANK LABEL',
+    datasets: 'BLANK DATASETS'
+  }
 
   data.labels = labels;
   data.datasets = dataSets;
+
+  return data;
 }
 
 function randomNumber(min, max) {
@@ -62,9 +66,14 @@ function round(value, precision) {
   return Math.round(value * multiplier) / multiplier;
 }
 
-function pushNewDataSet(dataset){
+function makeDatasetForMonth(name, days, starting, ending){
+   let label = "Weight Data for " + name;
+   let data = makeArrayOfWeights(days, starting, ending);
+   let monthDataSet = makeDataSet(label, true, data, false );
+   return monthDataSet; 
 
 }
+
 
 
 
