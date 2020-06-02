@@ -4,21 +4,11 @@ const weekLabels = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Fri
 const weekTitle = ["This is a week of data"];
 const daysInMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-var testMonthDataSet = makeDatasetForMonth(monthLabels[0],
-  daysInMonth[0],
-  140,
-  150,
-  );
-
- var testMonthData = makeData("Monthly Data", testMonthDataSet);
- 
- console.log(testMonthData);
-
-  
+console.log(makeYearOfDatasets());
 
 
 function makeDataSet(label, steppedLine, data, fill){
-  var dataSet = {
+  let dataSet = {
     label: 'BLANK DATASET',
     steppedLine: 'false',
     data: ['BLANK DATA'],
@@ -34,7 +24,7 @@ function makeDataSet(label, steppedLine, data, fill){
 }
 
 function makeData(labels, dataSets){
-  var data = {
+  let data = {
     labels: 'BLANK LABEL',
     datasets: 'BLANK DATASETS'
   }
@@ -62,17 +52,55 @@ function makeArrayOfWeights(index,starting,ending){
 }
 
 function round(value, precision) {
-  var multiplier = Math.pow(10, precision || 0);
+  let multiplier = Math.pow(10, precision || 0);
   return Math.round(value * multiplier) / multiplier;
 }
 
 function makeDatasetForMonth(name, days, starting, ending){
    let label = "Weight Data for " + name;
    let data = makeArrayOfWeights(days, starting, ending);
-   let monthDataSet = makeDataSet(label, true, data, false );
+   let monthDataSet = makeDataSet(label, false, data, false );
    return monthDataSet; 
+
 }
 
+function createDaysLabel(days){
+  let daysLabelArray = [];
+  for(let i = 1; i <= days; i++ ){
+    daysLabelArray.push(i);
+  }
+  return daysLabelArray;
+}
+
+function createRowTableData(){
+  let tableData = {
+    dayOfTheWeek: 'DAYOFTHEWEEK',
+    month: 'MONTH',
+    withInGoalRange: 'FALSE',
+    differenceFromGoal: '0.0',
+    date: 'DATE',
+    weight: 'WEIGHT',
+    goal: 'GOAL',
+    goalLow: 'GOALLOW',
+    goalHigh: 'GOALHIGH'
+  }
+}
+
+function makeYearOfDatasets(){
+  let trendingWeight = 180;
+  let yearOfDataSets = [];
+    for(let i = 0; i < monthLabels.length; i++){
+      let monthDataset = makeDatasetForMonth(monthLabels[i],
+        daysInMonth[i],
+        trendingWeight,
+        trendingWeight - 5);
+      
+        trendingWeight -= 5;
+        yearOfDataSets.push(monthDataset);
+    }
+
+    return yearOfDataSets;
+}
 
 
 
